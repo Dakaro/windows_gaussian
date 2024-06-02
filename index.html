@@ -1,1 +1,91 @@
-<h1>Hello1</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moja Strona</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        section {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .slider-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .slider {
+            width: 200px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Moja Strona</h1>
+    <p>To jest miejsce na opis strony.</p>
+</header>
+
+<section>
+    <h2>Sekcja 1</h2>
+    <div class="slider-container">
+        <input type="range" min="0" max="100" value="50" class="slider">
+        <input type="range" min="0" max="100" value="50" class="slider">
+    </div>
+</section>
+
+<section>
+    <h2>Sekcja 2</h2>
+    <div class="slider-container">
+        <input type="range" min="0" max="100" value="50" class="slider">
+        <input type="range" min="0" max="100" value="50" class="slider">
+    </div>
+</section>
+
+<section>
+    <h2>Wyniki PSNR</h2>
+    <table>
+        <tr>
+            <th>Obraz 1</th>
+            <th>Obraz 2</th>
+            <th>Wynik PSNR</th>
+        </tr>
+        <!-- Tutaj można wpisać wyniki PSNR w formie wierszy tabeli -->
+    </table>
+</section>
+
+</body>
+</html>
