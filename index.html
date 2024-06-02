@@ -24,29 +24,45 @@
             text-align: center;
         }
 
-        .slider {
-            width: 100%;
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
             margin-bottom: 20px;
         }
 
         .image {
-            max-width: 100%;
-            display: none;
+            max-width: 45%;
+        }
+
+        .caption {
+            font-size: 14px;
+            margin-top: 10px;
         }
 
         .slider-container {
             position: relative;
         }
 
-        .slider-container .image {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .slider {
+            width: 100%;
+            margin-bottom: 20px;
         }
 
-        .caption {
-            font-size: 14px;
-            margin-top: 10px;
+        .handle-left-arrow,
+        .handle-right-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .handle-left-arrow {
+            left: -10px;
+        }
+
+        .handle-right-arrow {
+            right: -10px;
         }
     </style>
 </head>
@@ -59,20 +75,28 @@
 
 <section>
     <h2>Sekcja 1</h2>
-    <div class="slider-container">
-        <input type="range" min="0" max="100" value="0" class="slider">
-        <img src="https://via.placeholder.com/200" alt="Obraz 1" class="image">
+    <div class="image-container">
+        <div class="slider-container">
+            <input type="range" min="0" max="100" value="50" class="slider">
+            <img src="https://via.placeholder.com/200" alt="Obraz 1" class="image">
+        </div>
+        <img src="https://via.placeholder.com/200" alt="Obraz 2" class="image" style="display: none;">
     </div>
     <p class="caption">Etykieta dla Obrazu 1</p>
+    <p class="caption">Etykieta dla Obrazu 2</p>
 </section>
 
 <section>
     <h2>Sekcja 2</h2>
-    <div class="slider-container">
-        <input type="range" min="0" max="100" value="0" class="slider">
-        <img src="https://via.placeholder.com/200" alt="Obraz 2" class="image">
+    <div class="image-container">
+        <div class="slider-container">
+            <input type="range" min="0" max="100" value="50" class="slider">
+            <img src="https://via.placeholder.com/200" alt="Obraz 3" class="image">
+        </div>
+        <img src="https://via.placeholder.com/200" alt="Obraz 4" class="image" style="display: none;">
     </div>
-    <p class="caption">Etykieta dla Obrazu 2</p>
+    <p class="caption">Etykieta dla Obrazu 3</p>
+    <p class="caption">Etykieta dla Obrazu 4</p>
 </section>
 
 <section>
@@ -85,12 +109,9 @@
     sliders.forEach(slider => {
         slider.addEventListener('input', function() {
             const value = parseInt(this.value);
-            const image = this.parentElement.querySelector('.image');
-            if (value > 50) {
-                image.style.display = 'block';
-            } else {
-                image.style.display = 'none';
-            }
+            const images = this.parentElement.parentElement.querySelectorAll('.image');
+            images[0].style.display = (value > 50) ? 'block' : 'none';
+            images[1].style.display = (value <= 50) ? 'block' : 'none';
         });
     });
 </script>
