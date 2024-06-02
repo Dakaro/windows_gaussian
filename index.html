@@ -24,31 +24,20 @@
             text-align: center;
         }
 
-        .slider-container {
+        .image-container {
             display: flex;
             justify-content: space-around;
             align-items: center;
             margin-bottom: 20px;
         }
 
-        .slider {
-            width: 200px;
+        .image {
+            max-width: 45%;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f2f2f2;
+        .caption {
+            font-size: 14px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -61,31 +50,6 @@
 
 <section>
     <h2>Sekcja 1</h2>
-    <div class="slider-container">
-        <input type="range" min="0" max="100" value="50" class="slider">
-        <input type="range" min="0" max="100" value="50" class="slider">
-    </div>
-</section>
-
-<section>
-    <h2>Sekcja 2</h2>
-    <div class="slider-container">
-        <input type="range" min="0" max="100" value="50" class="slider">
-        <input type="range" min="0" max="100" value="50" class="slider">
-    </div>
-</section>
-
-<section>
-    <h2>Wyniki PSNR</h2>
-    <table>
-        <tr>
-            <th>Obraz 1</th>
-            <th>Obraz 2</th>
-            <th>Wynik PSNR</th>
-        </tr>
-        <!-- Tutaj można wpisać wyniki PSNR w formie wierszy tabeli -->
-    </table>
-</section>
-
-</body>
-</html>
+    <div class="image-container">
+        <img src="https://via.placeholder.com/200" alt="Obraz 1" class="image">
+        <img src="https://via.placeholder.
