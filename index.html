@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moja Strona</title>
+    <title>Gaussian Splatting</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f2f2f2;
+            background-color: #E2E8F2;
         }
 
         header {
@@ -20,101 +20,343 @@
         }
 
         section {
-            padding: 40px;
+            padding: 20px;
             text-align: center;
         }
 
-        .image-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .image {
-            max-width: 45%;
-        }
-
-        .caption {
-            font-size: 14px;
-            margin-top: 10px;
-        }
-
-        .slider-container {
-            position: relative;
-        }
-
-        .slider {
+        table {
             width: 100%;
-            margin-bottom: 20px;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
 
-        .handle-left-arrow,
-        .handle-right-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
         }
 
-        .handle-left-arrow {
-            left: -10px;
+        th {
+            background-color: #f2f2f2;
         }
 
-        .handle-right-arrow {
-            right: -10px;
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Trzy kolumny o równych szerokościach */
+            grid-gap: 100px; /* Odstęp między elementami */
+            padding: 0px;
+            margin: 0  auto; /* Wyśrodkowanie kontenera */
         }
+
+        .item {
+            padding: 0px;
+            text-align: center;
+        }
+
+        .img-text-left,
+        .img-text-right {
+          position: absolute;
+          bottom: 10px; /* Odległość od dolnej krawędzi */
+          color: white; /* Kolor tekstu */
+          font-size: 16px; /* Rozmiar tekstu */
+          padding: 8px; /* Wewnętrzny odstęp */
+                    background-color: black;
+        }
+
+.img-text-left {
+  left: 10px; /* Odległość od lewej krawędzi */
+}
+
+.img-text-right {
+  right: 10px; /* Odległość od prawej krawędzi */
+}
+
+ul {
+  list-style-type: none; /* Typ punktorów (domyślnie kropki) */
+}
+
+li {
+  margin-bottom: 10px; /* Odstęp między punktami */
+    font-size: 20px;
+}
+
+
     </style>
+
+        <link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+
 </head>
 <body>
 
 <header>
-    <h1>Moja Strona</h1>
-    <p>To jest miejsce na opis strony.</p>
+    <h1>Gaussian Splatting</h1>
+    <p>Co z tymi szybami?</p>
+    <p>Dawid Baran, Przemysław Spurek</p>
 </header>
 
-<section>
-    <h2>Sekcja 1</h2>
-    <div class="image-container">
-        <div class="slider-container">
-            <input type="range" min="0" max="100" value="50" class="slider">
-            <img src="https://via.placeholder.com/200" alt="Obraz 1" class="image">
-        </div>
-        <img src="https://via.placeholder.com/200" alt="Obraz 2" class="image" style="display: none;">
-    </div>
-    <p class="caption">Etykieta dla Obrazu 1</p>
-    <p class="caption">Etykieta dla Obrazu 2</p>
+<section >
+    <h2>Jaki problem chcę rozwiązać?</h2>
+
+<div class="grid-container">
+<div class="img-comp-container">
+  <div class="img-comp-img">
+      <img src="img/original_truck_241.png" width="700" height="400">
+          <span class="img-text-right">30k 3DGS</span>
+  </div>
+  <div class="img-comp-img img-comp-overlay">
+    <img src="img/gt_truck_241.png" width="700" height="400">
+          <span class="img-text-left">GT</span>
+  </div>
+</div>
+</div>
+
 </section>
 
-<section>
-    <h2>Sekcja 2</h2>
-    <div class="image-container">
-        <div class="slider-container">
-            <input type="range" min="0" max="100" value="50" class="slider">
-            <img src="https://via.placeholder.com/200" alt="Obraz 3" class="image">
-        </div>
-        <img src="https://via.placeholder.com/200" alt="Obraz 4" class="image" style="display: none;">
-    </div>
-    <p class="caption">Etykieta dla Obrazu 3</p>
-    <p class="caption">Etykieta dla Obrazu 4</p>
-</section>
 
-<section>
+<section style="padding-top: 110px">
+        <h2><br></br>Pomysły</h2>
+    <ul>
+  <li >1. Wielkość gaussów przed podziałem</li>
+  <li>2. Próba wykrycia szyb zewnętrzym modelem</li>
+  <li>3. Zabawa z funkcją kosztu</li>
+</ul>
+    </section>
+
+
+<section style="padding-bottom: 100px">
+    <h2>Wielkość gaussów przed podziałem</h2>
+<div style="grid-template-columns: repeat(3, 1fr);grid-gap: 30px;" class="grid-container">
+    <div class="item">
+        <div class="img-comp-img">
+      <img src="img/truck_0.15.png" width="450" height="300">
+        <span class="img-text-left">0.15</span>
+        </div>
+  </div>
+<div class="item">
+    <div class="img-comp-img">
+      <img src="img/truck_0.1.png" width="450" height="300">
+    <span class="img-text-left">0.1 - default</span>
+    </div>
+  </div>
+    <div class="item">
+        <div class="img-comp-img">
+      <img src="img/truck_1.0.png" width="450" height="300">
+    <span class="img-text-left">1.0</span>
+        </div>
+  </div>
+</div>
+    </section>
+
+
+
+<section style="padding-top: 150px">
     <h2>Wyniki PSNR</h2>
-    <!-- Tabela na wyniki PSNR -->
+    <table border="1">
+  <tr>
+    <th>Wielkość podziału</th>
+    <th>Wynik PSNR</th>
+  </tr>
+  <tr>
+    <td>0.05</td>
+    <td>30.64</td>
+  </tr>
+  <tr>
+    <td>0.10</td>
+    <td>30.73</td>
+  </tr>
+  <tr>
+    <td>0.15</td>
+    <td>30.78</td>
+  </tr>
+  <tr>
+    <td>1.0</td>
+    <td>30.82</td>
+  </tr>
+</table>
 </section>
+
+<section >
+    <h2>Próba wykrycia szyb innym modelem</h2>
+      <img src="img/szyby.png" width="1000" height="400">
+    </section>
+
+<section >
+    <h2>Zabawa z funkcjami kosztu - geneza</h2>
+      <img src="img/geneza.png" width="1200" height="500">
+    </section>
+
+<section>
+    <h2>Jak to w ogóle wygląda?</h2>
+<div class="grid-container">
+    <div class="img-comp-container">
+        <div class="img-comp-img">
+            <img src="img/bce_plot.png" width="900" height="450">
+        </div>
+        <div class="img-comp-img img-comp-overlay">
+    <img src="img/mse_plot.png" width="900" height="450">
+  </div>
+</div>
+    </div>
+</section>
+
+<section style="padding-top: 250px; padding-bottom: 50px">
+    <h2>Jak wykorzystać dwie funkcje kosztu?</h2>
+<div class="grid-container">
+    <div class="img-comp-container">
+        <div class="img-comp-img">
+            <img src="img/gt_truck_209.png" width="900" height="450">
+        </div>
+        <div class="img-comp-img img-comp-overlay">
+    <img src="img/truck_comparison.png" width="900" height="450">
+  </div>
+</div>
+    </div>
+</section>
+
+<section style="padding-top: 250px; padding-bottom: 50px">
+    <h2>Dlaczego nie jedna funkcja?</h2>
+<div class="grid-container">
+    <div class="img-comp-container">
+        <div class="img-comp-img">
+            <img src="img/render_truck_bce_240.png" width="900" height="450">
+            <span class="img-text-right">BCE</span>
+        </div>
+        <div class="img-comp-img img-comp-overlay">
+    <img src="img/render_truck_mse_240.png" width="900" height="450">
+            <span class="img-text-left">MSE</span>
+  </div>
+</div>
+    </div>
+</section>
+
+<section style="padding-top: 250px; padding-bottom: 300px">
+    <h2>Pobawmy się suwakami :)</h2>
+<div class="grid-container">
+    <div class="item">
+    <div class="img-comp-container">
+        <div class="img-comp-img">
+            <img src="img/truck_gt.png" width="750" height="400">
+            <span class="img-text-right">GT</span>
+        </div>
+        <div class="img-comp-img img-comp-overlay">
+    <img src="img/truck_combined_29.png" width="750" height="400">
+            <span class="img-text-left">BCE+MSE 1.0</span>
+  </div>
+</div>
+    </div>
+        <div class="item">
+    <div class="img-comp-container">
+        <div class="img-comp-img">
+            <img src="img/truck_combined_19.png" width="710" height="400">
+            <span class="img-text-right">BCE+MSE</span>
+        </div>
+        <div class="img-comp-img img-comp-overlay">
+    <img src="img/truck_mse_19.png" width="710" height="400">
+            <span class="img-text-left">MSE</span>
+  </div>
+</div>
+    </div>
+
+    </div>
+</section>
+
+<section style="padding-bottom: 300px">
+<div class="grid-container">
+    <div class="item">
+    <div class="img-comp-container">
+        <div class="img-comp-img">
+            <img src="img/gt_30.png" width="750" height="400">
+            <span class="img-text-right">GT</span>
+        </div>
+        <div class="img-comp-img img-comp-overlay">
+    <img src="img/truck_combined_30.png" width="750" height="400">
+            <span class="img-text-left">BCE+MSE</span>
+  </div>
+</div>
+    </div>
+        <div class="item">
+    <div class="img-comp-container">
+        <div class="img-comp-img">
+            <img src="img/truck_combined_30.png" width="710" height="400">
+            <span class="img-text-right">BCE+MSE</span>
+        </div>
+        <div class="img-comp-img img-comp-overlay">
+    <img src="img/truck_mse_30.png" width="710" height="400">
+            <span class="img-text-left">MSE</span>
+  </div>
+</div>
+    </div>
+
+    </div>
+</section>
+
+<section style="padding-bottom: 300px">
+    <div class="grid-container" >
+                <div class="item">
+<div class="img-comp-container">
+  <div class="img-comp-img">
+      <img src="img/truck_combined_189.png" width="700" height="400">
+          <span class="img-text-right">BCE+MSE</span>
+  </div>
+  <div class="img-comp-img img-comp-overlay">
+    <img src="img/truck_mse_189.png" width="700" height="400">
+          <span class="img-text-left">MSE</span>
+  </div>
+</div>
+                </div>
+        <div class="item">
+<div class="img-comp-container">
+  <div class="img-comp-img">
+      <img src="img/truck_combined_28.png" width="700" height="400">
+          <span class="img-text-right">BCE+MSE</span>
+  </div>
+  <div class="img-comp-img img-comp-overlay">
+    <img src="img/truck_mse_28.png" width="700" height="400">
+          <span class="img-text-left">MSE</span>
+  </div>
+</div>
+                </div>
+</div>
+</section>
+
+<section style="padding-top: 50px">
+    <h2>Wyniki PSNR</h2>
+    <table border="1">
+  <tr>
+    <th>Model i iteracje</th>
+    <th>Wynik PSNR</th>
+  </tr>
+  <tr>
+    <td>MSE 7K</td>
+    <td>30.82</td>
+  </tr>
+  <tr>
+    <td>BCE+MSE 7K</td>
+    <td>30.75</td>
+  </tr>
+  <tr>
+    <td>MSE 30K</td>
+    <td>31.66</td>
+  </tr>
+  <tr>
+    <td>BCE+MSE 30K</td>
+    <td>31.75</td>
+  </tr>
+</table>
+</section>
+
+<header style="padding-top: 50px">
+    <p>Z czego korzystałem?</p>
+    <p>3DGS: repo-sam.inria.fr/fungraph/3d-gaussian-splatting</p>
+</header>
+
 
 <script>
-    const sliders = document.querySelectorAll('.slider');
-    sliders.forEach(slider => {
-        slider.addEventListener('input', function() {
-            const value = parseInt(this.value);
-            const images = this.parentElement.parentElement.querySelectorAll('.image');
-            images[0].style.display = (value > 50) ? 'block' : 'none';
-            images[1].style.display = (value <= 50) ? 'block' : 'none';
-        });
-    });
+initComparisons();
 </script>
+
 
 </body>
 </html>
+
